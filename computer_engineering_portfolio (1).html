@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kristian Carl A. Balean | Computer Engineer Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#030712',
+                            card: 'rgba(15, 23, 42, 0.75)',
+                            cyan: '#06b6d4',
+                            violet: '#8b5cf6',
+                            amber: '#f59e0b',
+                            emerald: '#10b981',
+                        }
+                    },
+                    animation: {
+                        'aurora-1': 'auroraOne 20s ease-in-out infinite alternate',
+                        'aurora-2': 'auroraTwo 25s ease-in-out infinite alternate',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'float': 'floating 6s ease-in-out infinite',
+                        'spin-slow': 'spin 15s linear infinite',
+                    },
+                    keyframes: {
+                        auroraOne: {
+                            '0%': { transform: 'translate(-10%, -10%) rotate(0deg) scale(1)' },
+                            '50%': { transform: 'translate(15%, 15%) rotate(180deg) scale(1.2)' },
+                            '100%': { transform: 'translate(-5%, 20%) rotate(360deg) scale(1)' },
+                        },
+                        auroraTwo: {
+                            '0%': { transform: 'translate(15%, 10%) rotate(0deg) scale(1.1)' },
+                            '50%': { transform: 'translate(-15%, -10%) rotate(-180deg) scale(0.9)' },
+                            '100%': { transform: 'translate(10%, -15%) rotate(-360deg) scale(1.1)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(6, 182, 212, 0.4))' },
+                            '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 25px rgba(139, 92, 246, 0.6))' },
+                        },
+                        floating: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Cyberpunk & Glassmorphism Aesthetics */
+        body {
+            background-color: #030712;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.15), 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        /* Cyberpunk Corner Accent Styles */
+        .cyber-corner {
+            position: relative;
+        }
+        .cyber-corner::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid #06b6d4;
+            border-left: 2px solid #06b6d4;
+            pointer-events: none;
+        }
+        .cyber-corner::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 10px;
+            height: 10px;
+            border-bottom: 2px solid #8b5cf6;
+            border-right: 2px solid #8b5cf6;
+            pointer-events: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #06b6d4;
+        }
+
+        /* Code Terminal Scrollbar */
+        .terminal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+
+        /* Glow Text Effect */
+        .glow-text-cyan {
+            text-shadow: 0 0 12px rgba(6, 182, 212, 0.6);
+        }
+        .glow-text-violet {
+            text-shadow: 0 0 12px rgba(139, 92, 246, 0.6);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-cyan-500 selection:text-black min-h-screen relative">
+
+    <!-- GLOBAL DYNAMIC BACKGROUND LAYER -->
+    <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <!-- Interactive Particle & Constellation Matrix Canvas -->
+        <canvas id="particleCanvas" class="absolute inset-0 w-full h-full opacity-60 pointer-events-auto"></canvas>
+
+        <!-- Animated Aurora Gradient Orbs -->
+        <div class="absolute -top-[20%] -left-[10%] w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] bg-gradient-to-br from-cyan-600/20 via-blue-900/15 to-transparent rounded-full blur-[120px] animate-aurora-1"></div>
+        <div class="absolute top-[40%] -right-[15%] w-[65vw] h-[65vw] max-w-[900px] max-h-[900px] bg-gradient-to-tl from-purple-700/20 via-fuchsia-900/15 to-transparent rounded-full blur-[140px] animate-aurora-2"></div>
+        <div class="absolute -bottom-[20%] left-[20%] w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] bg-gradient-to-tr from-amber-600/15 via-indigo-900/10 to-transparent rounded-full blur-[130px] animate-aurora-1"></div>
+
+        <!-- Subtle Grid Overlay -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f29370a_1px,transparent_1px),linear-gradient(to_bottom,#1f29370a_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+    </div>
+
+    <!-- MAIN WRAPPER -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- NAVBAR -->
+        <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/70 border-b border-slate-800/80 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <!-- Brand Logo -->
+                <a href="#hero" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-violet-600 p-[1px] shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition">
+                        <div class="w-full h-full bg-slate-950 rounded-[7px] flex items-center justify-center font-mono font-bold text-cyan-400 group-hover:text-white transition">
+                            KC
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold tracking-wider text-slate-100 group-hover:text-cyan-400 transition font-mono text-sm sm:text-base">
+                            KRISTIAN BALEAN
+                        </span>
+                        <span class="text-[10px] text-cyan-500 font-mono tracking-widest uppercase">
+                            [CpE] EMBEDDED & NETWORKING
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 font-mono text-xs lg:text-sm">
+                    <a href="#about" class="px-3 py-2 rounded-md text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition flex items-center gap-2">
+                        <span class="text-cyan-500">01.</span> About
+                    </a>
+                    <a href="#skills" class="px-3 py-2 rounded-md text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition flex items-center gap-2">
+                        <span class="text-cyan-500">02.</span> Matrix
+                    </a>
+                    <a href="#projects" class="px-3 py-2 rounded-md text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition flex items-center gap-2">
+                        <span class="text-cyan-500">03.</span> Projects
+                    </a>
+                    <a href="#cad-network" class="px-3 py-2 rounded-md text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition flex items-center gap-2">
+                        <span class="text-cyan-500">04.</span> Labs & CAD
+                    </a>
+                    <a href="#contact" class="ml-2 px-4 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-400 transition shadow-sm">
+                        <i class="fa-solid me-1.5 fa-paper-plane"></i> Contact
+                    </a>
+                </nav>
+
+                <!-- Mobile Navigation Toggle -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Dropdown Menu -->
+            <div id="mobileMenu" class="hidden md:hidden bg-slate-900/95 border-b border-slate-800 px-4 pt-2 pb-6 space-y-3 font-mono text-sm">
+                <a href="#about" class="mobile-link block px-3 py-2 rounded-md text-slate-300 hover:bg-slate-800 hover:text-cyan-400">01. About</a>
+                <a href="#skills" class="mobile-link block px-3 py-2 rounded-md text-slate-300 hover:bg-slate-800 hover:text-cyan-400">02. Matrix</a>
+                <a href="#projects" class="mobile-link block px-3 py-2 rounded-md text-slate-300 hover:bg-slate-800 hover:text-cyan-400">03. Projects</a>
+                <a href="#cad-network" class="mobile-link block px-3 py-2 rounded-md text-slate-300 hover:bg-slate-800 hover:text-cyan-400">04. Labs & CAD</a>
+                <a href="#contact" class="mobile-link block px-3 py-2 rounded-md text-cyan-400 bg-cyan-500/10 border border-cyan-500/30">Contact Transmission</a>
+            </div>
+        </header>
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="relative pt-10 pb-20 lg:pt-16 lg:pb-32 flex items-center min-h-[calc(100vh-5rem)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Hero Intro -->
+                    <div class="lg:col-span-7 space-y-6 text-left">
+                        <!-- Status Badge -->
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-cyan-500/30 text-xs font-mono text-cyan-300 shadow-inner">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 -ml-4"></span>
+                            <span>Computer Engineering Specialist</span>
+                            <span class="text-slate-600">|</span>
+                            <span class="text-violet-400">Cisco CCNA & AI Systems</span>
+                        </div>
+
+                        <!-- Main Headline -->
+                        <div class="space-y-2">
+                            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight">
+                                Architecting <br>
+                                <span class="bg-gradient-to-r from-cyan-400 via-violet-400 to-fuchsia-400 bg-clip-text text-transparent glow-text-cyan">
+                                    Hardware & Neural
+                                </span> <br>
+                                Networks.
+                            </h1>
+                        </div>
+
+                        <!-- Description -->
+                        <p class="text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed">
+                            Hi, I'm <span class="text-cyan-400 font-semibold">Kristian Carl A. Balean</span>. I bridge physical embedded systems, enterprise network topologies, CAD 3D enclosures, and custom AI computer vision pipelines.
+                        </p>
+
+                        <!-- Tech Quick Badges -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-3 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-microchip text-cyan-400"></i> Embedded Systems
+                            </span>
+                            <span class="px-3 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-network-wired text-violet-400"></i> Cisco Networking
+                            </span>
+                            <span class="px-3 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-cube text-amber-400"></i> AutoCAD 3D
+                            </span>
+                            <span class="px-3 py-1 rounded-md bg-slate-900/90 border border-slate-800 text-xs font-mono text-slate-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-brain text-emerald-400"></i> AI & Vision
+                            </span>
+                        </div>
+
+                        <!-- Hero CTA Buttons -->
+                        <div class="flex flex-wrap gap-4 pt-4 font-mono text-sm">
+                            <a href="#projects" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold hover:from-cyan-400 hover:to-blue-500 transition shadow-lg shadow-cyan-500/25 flex items-center gap-2">
+                                <i class="fa-solid fa-laptop-code"></i> Explore Projects
+                            </a>
+                            <a href="#cad-network" class="px-6 py-3.5 rounded-xl glass-panel text-slate-200 hover:text-cyan-400 border border-slate-700/80 hover:border-cyan-500/50 transition flex items-center gap-2">
+                                <i class="fa-solid fa-network-wired"></i> 69-Node Network Lab
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Interactive CLI Terminal -->
+                    <div class="lg:col-span-5">
+                        <div class="glass-panel rounded-2xl overflow-hidden cyber-corner shadow-2xl border border-slate-800/90">
+                            <!-- Terminal Header -->
+                            <div class="bg-slate-900/90 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                                    <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                                    <span class="text-xs font-mono text-slate-400 ml-2">balean-core-v2.6.sh</span>
+                                </div>
+                                <div class="text-[10px] font-mono text-cyan-400/70 uppercase tracking-widest">
+                                    LIVE CLI
+                                </div>
+                            </div>
+
+                            <!-- Terminal Content Body -->
+                            <div id="terminalBody" class="p-4 sm:p-5 font-mono text-xs sm:text-sm h-80 sm:h-96 overflow-y-auto terminal-body bg-slate-950/90 space-y-3">
+                                <div>
+                                    <span class="text-emerald-400">kristian@balean-workstation</span>:<span class="text-blue-400">~</span>$ status-check
+                                </div>
+                                <div class="text-slate-300 leading-relaxed pl-2 border-l-2 border-cyan-500/40 space-y-1">
+                                    <p>[OK] CPU Core: Computer Engineering Active</p>
+                                    <p>[OK] Modules: Embedded, Cisco, AutoCAD, AI</p>
+                                    <p>[OK] Constellation Matrix Grid Synchronized</p>
+                                </div>
+                                <div class="text-slate-400 text-xs">
+                                    Type <span class="text-amber-300 font-bold">'help'</span>, <span class="text-cyan-400">'bio'</span>, <span class="text-violet-400">'skills'</span>, <span class="text-emerald-400">'projects'</span>, or <span class="text-rose-400">'clear'</span> below:
+                                </div>
+                                <div id="terminalOutput" class="space-y-2"></div>
+                            </div>
+
+                            <!-- Terminal Input Box -->
+                            <form id="terminalForm" class="bg-slate-900/90 px-4 py-2.5 border-t border-slate-800 flex items-center">
+                                <span class="text-cyan-400 font-mono text-sm mr-2">&gt;</span>
+                                <input type="text" id="terminalInput" class="w-full bg-transparent text-slate-100 font-mono text-xs sm:text-sm focus:outline-none placeholder-slate-600" placeholder="Type a command..." autocomplete="off">
+                                <button type="submit" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 px-2 py-1">RUN</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex items-center space-x-4 mb-12">
+                    <span class="font-mono text-cyan-400 text-xl">01.</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-wide">Engineering Profile & Philosophy</h2>
+                    <div class="h-[1px] bg-slate-800 flex-grow max-w-xs"></div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    <!-- Bio Glass Card -->
+                    <div class="lg:col-span-7 glass-panel p-6 sm:p-8 rounded-2xl cyber-corner flex flex-col justify-between">
+                        <div class="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+                            <p>
+                                I am <strong class="text-cyan-300">Kristian Carl A. Balean</strong>, a Computer Engineering student driven by the passion to integrate hardware engineering with intelligent software models. My technical domain spans low-level microcontrollers, enterprise networking infrastructure, precise 3D mechanical CAD designs, and modern AI vision systems.
+                            </p>
+                            <p>
+                                Whether configuring complex multi-subnet Cisco networks with multi-area OSPF and VLANs, or tuning motor drivers with exact micro-stepping algorithms, I focus on reliability, scalable architecture, and streamlined user interfaces.
+                            </p>
+                        </div>
+
+                        <!-- Core Competencies Grid -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-slate-800/80 mt-6 font-mono text-xs">
+                            <div class="p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-center">
+                                <div class="text-cyan-400 text-lg mb-1"><i class="fa-solid fa-microchip"></i></div>
+                                <div class="text-slate-200 font-semibold">Embedded</div>
+                                <div class="text-[10px] text-slate-400">ESP32 / Arduino</div>
+                            </div>
+                            <div class="p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-center">
+                                <div class="text-violet-400 text-lg mb-1"><i class="fa-solid fa-network-wired"></i></div>
+                                <div class="text-slate-200 font-semibold">Cisco</div>
+                                <div class="text-[10px] text-slate-400">Packet Tracer / Routing</div>
+                            </div>
+                            <div class="p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-center">
+                                <div class="text-amber-400 text-lg mb-1"><i class="fa-solid fa-cube"></i></div>
+                                <div class="text-slate-200 font-semibold">AutoCAD</div>
+                                <div class="text-[10px] text-slate-400">3D Enclosures</div>
+                            </div>
+                            <div class="p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-center">
+                                <div class="text-emerald-400 text-lg mb-1"><i class="fa-solid fa-brain"></i></div>
+                                <div class="text-slate-200 font-semibold">AI Models</div>
+                                <div class="text-[10px] text-slate-400">OpenCV / Python</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Metrics & Academic Stats -->
+                    <div class="lg:col-span-5 glass-panel p-6 sm:p-8 rounded-2xl flex flex-col justify-between space-y-6">
+                        <h3 class="text-lg font-bold text-white font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-cyan-400"></i> Performance & Metrics
+                        </h3>
+
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Cisco Packet Tracer / Topology Optimization</span>
+                                    <span class="text-cyan-400">95%</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                                    <div class="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" style="width: 95%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">AutoCAD 3D Modeling & Mechanical Hardware</span>
+                                    <span class="text-violet-400">90%</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                                    <div class="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">Embedded Firmware (C++ / ESP32 / Steppers)</span>
+                                    <span class="text-amber-400">92%</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                                    <div class="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs font-mono mb-1">
+                                    <span class="text-slate-300">AI Computer Vision & Python Development</span>
+                                    <span class="text-emerald-400">88%</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                                    <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full" style="width: 88%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/20 text-xs font-mono text-cyan-200 flex items-center justify-between">
+                            <span><i class="fa-solid fa-graduation-cap me-2 text-cyan-400"></i> BS Computer Engineering</span>
+                            <span class="text-slate-400">In Progress</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SKILLS MATRIX SECTION -->
+        <section id="skills" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex items-center space-x-4 mb-8">
+                    <span class="font-mono text-cyan-400 text-xl">02.</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-wide">Filterable Technical Matrix</h2>
+                    <div class="h-[1px] bg-slate-800 flex-grow max-w-xs"></div>
+                </div>
+
+                <!-- Skill Category Filter Buttons -->
+                <div class="flex flex-wrap gap-2 sm:gap-3 mb-8 font-mono text-xs sm:text-sm">
+                    <button class="skill-filter-btn active px-4 py-2 rounded-xl bg-cyan-500 text-slate-950 font-bold transition shadow-md shadow-cyan-500/20" data-filter="all">
+                        All Matrix [16]
+                    </button>
+                    <button class="skill-filter-btn px-4 py-2 rounded-xl glass-panel text-slate-300 hover:text-cyan-400 transition" data-filter="embedded">
+                        <i class="fa-solid fa-microchip text-cyan-400 me-1"></i> Embedded Systems
+                    </button>
+                    <button class="skill-filter-btn px-4 py-2 rounded-xl glass-panel text-slate-300 hover:text-violet-400 transition" data-filter="networking">
+                        <i class="fa-solid fa-network-wired text-violet-400 me-1"></i> Cisco Networking
+                    </button>
+                    <button class="skill-filter-btn px-4 py-2 rounded-xl glass-panel text-slate-300 hover:text-amber-400 transition" data-filter="cad">
+                        <i class="fa-solid fa-cube text-amber-400 me-1"></i> AutoCAD & Hardware
+                    </button>
+                    <button class="skill-filter-btn px-4 py-2 rounded-xl glass-panel text-slate-300 hover:text-emerald-400 transition" data-filter="ai">
+                        <i class="fa-solid fa-brain text-emerald-400 me-1"></i> AI & Software
+                    </button>
+                </div>
+
+                <!-- Skills Grid -->
+                <div id="skillsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                    
+                    <!-- Embedded Systems -->
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="embedded">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-cyan-400">EMBEDDED</span>
+                            <i class="fa-solid fa-microchip text-cyan-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">ESP32 & Wi-Fi Microcontrollers</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Dual-core Tensilica processing, IoT REST APIs, BLE broadcasting, dynamic sensor integration.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="embedded">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-cyan-400">EMBEDDED</span>
+                            <i class="fa-solid fa-gears text-cyan-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">A4988 & Stepper Motor Control</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Micro-stepping pulse generation, precision positional feedback, PWM speed regulation.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="embedded">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-cyan-400">EMBEDDED</span>
+                            <i class="fa-solid fa-wave-square text-cyan-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">Arduino & Firmware C/C++</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Hardware interrupt timers, SPI/I2C protocols, UART serial parsing, low-power sleep modes.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="embedded">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-cyan-400">EMBEDDED</span>
+                            <i class="fa-solid fa-plug text-cyan-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">Circuit Design & Breadboarding</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Power distribution, transistor switching, optocoupler isolation, logic level translation.</p>
+                    </div>
+
+                    <!-- Cisco Networking -->
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="networking">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-violet-400">NETWORKING</span>
+                            <i class="fa-solid fa-diagram-project text-violet-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">Cisco Packet Tracer Enterprise</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Designing multi-floor enterprise infrastructure, topology optimization, virtualized simulations.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="networking">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-violet-400">NETWORKING</span>
+                            <i class="fa-solid fa-route text-violet-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">OSPF Routing & Subnetting</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Multi-area OSPF configuration, VLSM addressing schemes, route summarization, dynamic failover.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="networking">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-violet-400">NETWORKING</span>
+                            <i class="fa-solid fa-sitemap text-violet-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">VLAN & Trunking Protocols</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">802.1Q trunking, inter-VLAN routing, Spanning Tree Protocol (STP), port security matrix.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="networking">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-violet-400">NETWORKING</span>
+                            <i class="fa-solid fa-shield-halved text-violet-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">ACLs & Router Security</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Standard & extended Access Control Lists, NAT/PAT translation, SSH administrative access.</p>
+                    </div>
+
+                    <!-- CAD & Hardware -->
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="cad">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-amber-400">CAD & HARDWARE</span>
+                            <i class="fa-solid fa-cube text-amber-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">AutoCAD 3D Enclosure Design</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Custom protective housing for PCBs, ventilation ducting, wire routing cutouts, snap-fit joints.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="cad">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-amber-400">CAD & HARDWARE</span>
+                            <i class="fa-solid fa-ruler-combined text-amber-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">Precision Mechanical Specs</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Metric tolerances, shaft coupler alignment, thermal expansion margins, mounting bracket design.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="cad">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-amber-400">CAD & HARDWARE</span>
+                            <i class="fa-solid fa-layer-group text-amber-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">Rapid Prototyping Workflow</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">STL export, slicer parameter tuning, infill density calculation, prototype assembly.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="cad">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-amber-400">CAD & HARDWARE</span>
+                            <i class="fa-solid fa-wrench text-amber-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">Hardware Troubleshooting</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Multimeter diagnostics, logic analyzer trace checks, signal integrity verification.</p>
+                    </div>
+
+                    <!-- AI & Software -->
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="ai">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-emerald-400">AI & SOFTWARE</span>
+                            <i class="fa-solid fa-eye text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">Computer Vision (OpenCV)</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Real-time object tracking, facial gesture recognition, motion detection thresholds.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="ai">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-emerald-400">AI & SOFTWARE</span>
+                            <i class="fa-brands fa-python text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">Python Systems Engineering</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Asynchronous frame processing, socket communication, REST APIs, machine learning pipelines.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="ai">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-emerald-400">AI & SOFTWARE</span>
+                            <i class="fa-solid fa-notes-medical text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">Medical Translation AI</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">Sign language recognition models, anatomical terminology processing, speech synthesis.</p>
+                    </div>
+
+                    <div class="skill-card glass-panel p-5 rounded-2xl cyber-corner space-y-3" data-category="ai">
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs font-mono text-emerald-400">AI & SOFTWARE</span>
+                            <i class="fa-solid fa-network-wired text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">Full-Stack Interface Integration</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed">HTML5/JS UI dashboards for viewing embedded telemetry and real-time security alerts.</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex items-center space-x-4 mb-12">
+                    <span class="font-mono text-cyan-400 text-xl">03.</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-wide">Highlighted Engineering Projects</h2>
+                    <div class="h-[1px] bg-slate-800 flex-grow max-w-xs"></div>
+                </div>
+
+                <!-- Projects Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Project 1: MedSpeak AI -->
+                    <div class="glass-panel rounded-2xl overflow-hidden cyber-corner flex flex-col justify-between group hover:border-cyan-400/50 transition duration-300">
+                        <div class="p-6 sm:p-8 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs">
+                                    AI & COMPUTER VISION
+                                </span>
+                                <i class="fa-solid fa-notes-medical text-emerald-400 text-xl"></i>
+                            </div>
+
+                            <h3 class="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-400 transition">
+                                MedSpeak AI: Medical Sign Language Translation
+                            </h3>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Real-time AI vision translation system converting deaf patient hand gestures into instant text and audio medical symptoms for healthcare professionals.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 pt-2 font-mono text-[11px] text-slate-400">
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">Python</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">OpenCV</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">MediaPipe</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">TensorFlow</span>
+                            </div>
+                        </div>
+
+                        <div class="px-6 py-4 bg-slate-900/80 border-t border-slate-800/80 flex justify-between items-center">
+                            <span class="text-xs font-mono text-slate-400">Status: Operational Prototype</span>
+                            <button onclick="openModal('medspeak')" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
+                                VIEW SPECS <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Zoom Security AI -->
+                    <div class="glass-panel rounded-2xl overflow-hidden cyber-corner flex flex-col justify-between group hover:border-cyan-400/50 transition duration-300">
+                        <div class="p-6 sm:p-8 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs">
+                                    AI & THREAT DETECTION
+                                </span>
+                                <i class="fa-solid fa-video text-cyan-400 text-xl"></i>
+                            </div>
+
+                            <h3 class="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-400 transition">
+                                Zoom Meeting Threat Detection AI
+                            </h3>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Video analytics security bot monitoring Zoom video streams to automatically flag weapon gestures, unauthorized intruders, and unusual behavior in real time.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 pt-2 font-mono text-[11px] text-slate-400">
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">YOLOv8</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">Python</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">WebSockets</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">FastAPI</span>
+                            </div>
+                        </div>
+
+                        <div class="px-6 py-4 bg-slate-900/80 border-t border-slate-800/80 flex justify-between items-center">
+                            <span class="text-xs font-mono text-slate-400">Status: Security Verified</span>
+                            <button onclick="openModal('zoom')" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
+                                VIEW SPECS <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: 69-Node Network -->
+                    <div class="glass-panel rounded-2xl overflow-hidden cyber-corner flex flex-col justify-between group hover:border-cyan-400/50 transition duration-300">
+                        <div class="p-6 sm:p-8 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-400 font-mono text-xs">
+                                    CISCO NETWORKING
+                                </span>
+                                <i class="fa-solid fa-sitemap text-violet-400 text-xl"></i>
+                            </div>
+
+                            <h3 class="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-400 transition">
+                                69-Node 3-Story Enterprise Cisco Network
+                            </h3>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Complete multi-tiered building network simulation featuring multi-area OSPF routing, VLAN segmentation, redundant switches, and secure access gateways.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 pt-2 font-mono text-[11px] text-slate-400">
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">Packet Tracer</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">Multi-Area OSPF</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">Inter-VLAN</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">ACLs</span>
+                            </div>
+                        </div>
+
+                        <div class="px-6 py-4 bg-slate-900/80 border-t border-slate-800/80 flex justify-between items-center">
+                            <span class="text-xs font-mono text-slate-400">Status: Topology Active</span>
+                            <button onclick="openModal('network')" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
+                                VIEW SPECS <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: Stepper Enclosure -->
+                    <div class="glass-panel rounded-2xl overflow-hidden cyber-corner flex flex-col justify-between group hover:border-cyan-400/50 transition duration-300">
+                        <div class="p-6 sm:p-8 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-xs">
+                                    EMBEDDED & CAD
+                                </span>
+                                <i class="fa-solid fa-cube text-amber-400 text-xl"></i>
+                            </div>
+
+                            <h3 class="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-400 transition">
+                                ESP32 + Stepper Driver & 3D AutoCAD Enclosure
+                            </h3>
+
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                Integrated hardware motion module with custom-designed 3D AutoCAD protective enclosure housing an ESP32, A4988 driver, and active cooling fan.
+                            </p>
+
+                            <div class="flex flex-wrap gap-2 pt-2 font-mono text-[11px] text-slate-400">
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">ESP32</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">A4988 Driver</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">AutoCAD 3D</span>
+                                <span class="bg-slate-900/80 px-2.5 py-1 rounded border border-slate-800">C++ Firmware</span>
+                            </div>
+                        </div>
+
+                        <div class="px-6 py-4 bg-slate-900/80 border-t border-slate-800/80 flex justify-between items-center">
+                            <span class="text-xs font-mono text-slate-400">Status: Physical Blueprint</span>
+                            <button onclick="openModal('stepper')" class="text-xs font-mono text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
+                                VIEW SPECS <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- LABS & INTERACTIVE CANVASES SECTION -->
+        <section id="cad-network" class="py-20 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex items-center space-x-4 mb-8">
+                    <span class="font-mono text-cyan-400 text-xl">04.</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-wide">Interactive CAD & Network Simulators</h2>
+                    <div class="h-[1px] bg-slate-800 flex-grow max-w-xs"></div>
+                </div>
+
+                <!-- Tab Switchers -->
+                <div class="flex space-x-3 mb-6 font-mono text-xs sm:text-sm">
+                    <button id="tabCadBtn" class="px-5 py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold transition shadow-lg shadow-cyan-500/20" onclick="switchLabTab('cad')">
+                        <i class="fa-solid fa-cube me-1.5"></i> 3D CAD Enclosure Wireframe
+                    </button>
+                    <button id="tabNetBtn" class="px-5 py-2.5 rounded-xl glass-panel text-slate-300 hover:text-cyan-400 transition" onclick="switchLabTab('network')">
+                        <i class="fa-solid fa-diagram-project me-1.5"></i> 69-Node Network Topology
+                    </button>
+                </div>
+
+                <!-- Tab 1: CAD 3D Canvas -->
+                <div id="cadTabContainer" class="glass-panel p-6 rounded-2xl cyber-corner space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-white font-mono flex items-center gap-2">
+                                <i class="fa-solid fa-cube text-amber-400"></i> Interactive 3D Wireframe AutoCAD Enclosure
+                            </h3>
+                            <p class="text-xs text-slate-400">Drag mouse/finger over the canvas to rotate the 3D model in real-time.</p>
+                        </div>
+                        <div class="flex items-center gap-2 font-mono text-xs">
+                            <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-cyan-400">ESP32 Slot</span>
+                            <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-amber-400">A4988 Bay</span>
+                            <span class="px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-violet-400">Vents & Fan</span>
+                        </div>
+                    </div>
+
+                    <!-- CAD Canvas Container -->
+                    <div class="relative w-full h-[400px] bg-slate-950 rounded-xl overflow-hidden border border-slate-800/80 flex items-center justify-center">
+                        <canvas id="cadCanvas" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
+
+                        <div class="absolute bottom-3 left-3 bg-slate-900/90 px-3 py-1.5 rounded-lg border border-slate-800 text-[11px] font-mono text-slate-300 pointer-events-none">
+                            <i class="fa-solid fa-arrows-spin text-cyan-400 me-1"></i> Interactive Rotation Active
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: 69-Node Network Map Canvas -->
+                <div id="networkTabContainer" class="hidden glass-panel p-6 rounded-2xl cyber-corner space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-white font-mono flex items-center gap-2">
+                                <i class="fa-solid fa-network-wired text-violet-400"></i> 69-Node 3-Story Enterprise Network Visualizer
+                            </h3>
+                            <p class="text-xs text-slate-400">Simulated dynamic packet flow across Floor 1, Floor 2, Floor 3 & Core Server Gateway.</p>
+                        </div>
+                        <div class="flex items-center gap-3 font-mono text-xs">
+                            <span class="flex items-center gap-1.5 text-emerald-400"><span class="w-2 h-2 rounded-full bg-emerald-400"></span> Core Routers</span>
+                            <span class="flex items-center gap-1.5 text-cyan-400"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> Floor Switches</span>
+                            <span class="flex items-center gap-1.5 text-violet-400"><span class="w-2 h-2 rounded-full bg-violet-400"></span> End Workstations</span>
+                        </div>
+                    </div>
+
+                    <!-- Network Visualizer Canvas -->
+                    <div class="relative w-full h-[450px] bg-slate-950 rounded-xl overflow-hidden border border-slate-800/80">
+                        <canvas id="networkCanvas" class="w-full h-full"></canvas>
+
+                        <div class="absolute top-3 left-3 bg-slate-900/90 px-3 py-2 rounded-lg border border-slate-800 text-[11px] font-mono text-slate-300 space-y-1">
+                            <div><strong class="text-violet-400">Subnets:</strong> 10.0.1.0/24 (F1), 10.0.2.0/24 (F2), 10.0.3.0/24 (F3)</div>
+                            <div><strong class="text-cyan-400">Routing Protocol:</strong> Multi-Area OSPF Area 0 & Area 1</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACT TRANSMISSION SECTION -->
+        <section id="contact" class="py-20 relative">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="glass-panel p-8 sm:p-10 rounded-2xl cyber-corner space-y-8 border border-slate-800/90">
+                    <div class="text-center space-y-3">
+                        <span class="font-mono text-cyan-400 text-sm">05. TRANSMISSION LINK</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Initialize Contact</h2>
+                        <p class="text-slate-300 text-sm max-w-xl mx-auto">
+                            Have an embedded project, networking configuration task, or engineering inquiry? Send a message directly to my console queue.
+                        </p>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="block font-mono text-xs text-slate-300">SENDER NAME</label>
+                                <input type="text" id="contactName" required class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 text-white font-mono text-sm focus:outline-none focus:border-cyan-400 transition" placeholder="e.g. Alex Mercer">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block font-mono text-xs text-slate-300">EMAIL ADDRESS</label>
+                                <input type="email" id="contactEmail" required class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 text-white font-mono text-sm focus:outline-none focus:border-cyan-400 transition" placeholder="e.g. alex@engineering.com">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block font-mono text-xs text-slate-300">TRANSMISSION SUBJECT</label>
+                            <input type="text" id="contactSubject" required class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 text-white font-mono text-sm focus:outline-none focus:border-cyan-400 transition" placeholder="e.g. Cisco Topology Collaboration / ESP32 Project">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block font-mono text-xs text-slate-300">MESSAGE PAYLOAD</label>
+                            <textarea id="contactMessage" rows="5" required class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-800 text-white font-mono text-sm focus:outline-none focus:border-cyan-400 transition" placeholder="State your requirements or engineering discussion topics..."></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-slate-950 font-mono font-bold hover:opacity-90 transition shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> TRANSMIT MESSAGE TO KRISTIAN
+                        </button>
+                    </form>
+
+                    <!-- Alert Box -->
+                    <div id="contactAlert" class="hidden p-4 rounded-xl font-mono text-xs text-center border"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="mt-auto border-t border-slate-800/80 bg-slate-950/80 py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-400">
+                <div class="flex items-center space-x-2">
+                    <span class="text-cyan-400 font-bold">KRISTIAN CARL A. BALEAN</span>
+                    <span>&copy; 2026</span>
+                </div>
+                <div class="flex items-center space-x-6 text-slate-400">
+                    <a href="#hero" class="hover:text-cyan-400 transition">Terminal Top</a>
+                    <a href="#skills" class="hover:text-cyan-400 transition">Matrix</a>
+                    <a href="#cad-network" class="hover:text-cyan-400 transition">Labs</a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- PROJECT DETAIL MODAL CONTAINER -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-2xl rounded-2xl p-6 sm:p-8 space-y-6 cyber-corner border border-slate-800 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modalHeader" class="space-y-2"></div>
+            <div id="modalBody" class="space-y-4 text-slate-300 text-sm leading-relaxed"></div>
+            
+            <div class="pt-4 border-t border-slate-800 flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 font-mono text-xs text-slate-200">
+                    Close Specs
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* ==========================================================================
+           1. COSMIC CONSTELLATION & LASER MATRIX CANVAS BACKGROUND
+           ========================================================================== */
+        const particleCanvas = document.getElementById('particleCanvas');
+        const pCtx = particleCanvas.getContext('2d');
+
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 150 };
+
+        function resizeParticleCanvas() {
+            particleCanvas.width = window.innerWidth;
+            particleCanvas.height = window.innerHeight;
+            initParticles();
+        }
+
+        window.addEventListener('resize', resizeParticleCanvas);
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * particleCanvas.width;
+                this.y = Math.random() * particleCanvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.color = Math.random() > 0.4 ? '#06b6d4' : (Math.random() > 0.5 ? '#8b5cf6' : '#f59e0b');
+            }
+
+            draw() {
+                pCtx.beginPath();
+                pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                pCtx.fillStyle = this.color;
+                pCtx.shadowBlur = 8;
+                pCtx.shadowColor = this.color;
+                pCtx.fill();
+                pCtx.shadowBlur = 0;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > particleCanvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > particleCanvas.height) this.vy *= -1;
+
+                // Mouse proximity response
+                if (mouse.x && mouse.y) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        let force = (mouse.radius - distance) / mouse.radius;
+                        this.x -= (dx / distance) * force * 3;
+                        this.y -= (dy / distance) * force * 3;
+                    }
+                }
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.floor((particleCanvas.width * particleCanvas.height) / 12000);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let dx = particles[a].x - particles[b].x;
+                    let dy = particles[a].y - particles[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 110) {
+                        let opacity = 1 - (distance / 110);
+                        pCtx.strokeStyle = `rgba(6, 182, 212, ${opacity * 0.25})`;
+                        pCtx.lineWidth = 0.8;
+                        pCtx.beginPath();
+                        pCtx.moveTo(particles[a].x, particles[a].y);
+                        pCtx.lineTo(particles[b].x, particles[b].y);
+                        pCtx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+
+        /* ==========================================================================
+           2. LIVE INTERACTIVE CLI TERMINAL
+           ========================================================================== */
+        const terminalForm = document.getElementById('terminalForm');
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalOutput = document.getElementById('terminalOutput');
+        const terminalBody = document.getElementById('terminalBody');
+
+        const cliCommands = {
+            'help': 'Available commands: <span class="text-cyan-400">bio</span>, <span class="text-violet-400">skills</span>, <span class="text-emerald-400">projects</span>, <span class="text-amber-400">contact</span>, <span class="text-rose-400">clear</span>',
+            'bio': 'Kristian Carl A. Balean - Computer Engineering Student specializing in Embedded ESP32 Systems, Cisco CCNA Networking Topologies, 3D AutoCAD Enclosures & AI OpenCV Systems.',
+            'skills': '[Embedded]: ESP32, A4988, C++ | [Network]: OSPF, VLANs, ACLs | [CAD]: AutoCAD 3D | [AI]: Python, OpenCV, YOLO',
+            'projects': '1. MedSpeak AI | 2. Zoom Security AI | 3. 69-Node Network | 4. ESP32 Stepper Module',
+            'contact': 'Transmit message via the form below or connect via email for engineering inquiries.'
+        };
+
+        terminalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const cmd = terminalInput.value.trim().toLowerCase();
+            terminalInput.value = '';
+
+            if (!cmd) return;
+
+            // Display typed command
+            const userLine = document.createElement('div');
+            userLine.innerHTML = `<span class="text-emerald-400">kristian@balean-workstation</span>:<span class="text-blue-400">~</span>$ ${cmd}`;
+            terminalOutput.appendChild(userLine);
+
+            const responseLine = document.createElement('div');
+            responseLine.className = 'text-slate-300 pl-2 border-l-2 border-cyan-500/40 text-xs py-1';
+
+            if (cmd === 'clear') {
+                terminalOutput.innerHTML = '';
+                return;
+            } else if (cliCommands[cmd]) {
+                responseLine.innerHTML = cliCommands[cmd];
+            } else {
+                responseLine.innerHTML = `Command not recognized: '<span class="text-rose-400">${cmd}</span>'. Type '<span class="text-amber-300">help</span>' for a list of commands.`;
+            }
+
+            terminalOutput.appendChild(responseLine);
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        });
+
+        /* ==========================================================================
+           3. FILTERABLE SKILLS MATRIX
+           ========================================================================== */
+        const filterBtns = document.querySelectorAll('.skill-filter-btn');
+        const skillCards = document.querySelectorAll('.skill-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-cyan-500', 'text-slate-950', 'font-bold');
+                    b.classList.add('glass-panel', 'text-slate-300');
+                });
+
+                btn.classList.add('active', 'bg-cyan-500', 'text-slate-950', 'font-bold');
+                btn.classList.remove('glass-panel', 'text-slate-300');
+
+                const filter = btn.getAttribute('data-filter');
+
+                skillCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        /* ==========================================================================
+           4. LAB & SIMULATOR TAB SWITCHER & CANVASES
+           ========================================================================== */
+        const tabCadBtn = document.getElementById('tabCadBtn');
+        const tabNetBtn = document.getElementById('tabNetBtn');
+        const cadTabContainer = document.getElementById('cadTabContainer');
+        const networkTabContainer = document.getElementById('networkTabContainer');
+
+        function switchLabTab(tab) {
+            if (tab === 'cad') {
+                cadTabContainer.classList.remove('hidden');
+                networkTabContainer.classList.add('hidden');
+                tabCadBtn.className = "px-5 py-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold transition shadow-lg shadow-cyan-500/20";
+                tabNetBtn.className = "px-5 py-2.5 rounded-xl glass-panel text-slate-300 hover:text-cyan-400 transition";
+            } else {
+                networkTabContainer.classList.remove('hidden');
+                cadTabContainer.classList.add('hidden');
+                tabNetBtn.className = "px-5 py-2.5 rounded-xl bg-violet-500 text-slate-950 font-bold transition shadow-lg shadow-violet-500/20";
+                tabCadBtn.className = "px-5 py-2.5 rounded-xl glass-panel text-slate-300 hover:text-cyan-400 transition";
+                resizeNetworkCanvas();
+            }
+        }
+
+        // --- 3D CAD Wireframe Canvas ---
+        const cadCanvas = document.getElementById('cadCanvas');
+        const cCtx = cadCanvas.getContext('2d');
+
+        let rotX = 0.4;
+        let rotY = 0.6;
+        let isDragging = false;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+
+        function resizeCadCanvas() {
+            cadCanvas.width = cadCanvas.parentElement.clientWidth;
+            cadCanvas.height = cadCanvas.parentElement.clientHeight;
+        }
+
+        cadCanvas.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        });
+
+        window.addEventListener('mouseup', () => isDragging = false);
+
+        cadCanvas.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            let dx = e.clientX - lastMouseX;
+            let dy = e.clientY - lastMouseY;
+            rotY += dx * 0.01;
+            rotX += dy * 0.01;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        });
+
+        // 3D Cuboid Vertices for AutoCAD Enclosure Prototype
+        const boxVertices = [
+            [-100, -50, -60], [100, -50, -60], [100, 50, -60], [-100, 50, -60], // Back
+            [-100, -50, 60],  [100, -50, 60],  [100, 50, 60],  [-100, 50, 60]   // Front
+        ];
+
+        const boxEdges = [
+            [0,1], [1,2], [2,3], [3,0], // Back
+            [4,5], [5,6], [6,7], [7,4], // Front
+            [0,4], [1,5], [2,6], [3,7]  // Connectors
+        ];
+
+        // ESP32 Sub-Component Box inside Enclosure
+        const espVertices = [
+            [-80, -20, -30], [-20, -20, -30], [-20, 20, -30], [-80, 20, -30],
+            [-80, -20, 30],  [-20, -20, 30],  [-20, 20, 30],  [-80, 20, 30]
+        ];
+
+        function project3D(x, y, z) {
+            // Rotation Y
+            let x1 = x * Math.cos(rotY) + z * Math.sin(rotY);
+            let z1 = -x * Math.sin(rotY) + z * Math.cos(rotY);
+            // Rotation X
+            let y2 = y * Math.cos(rotX) - z1 * Math.sin(rotX);
+            let z2 = y * Math.sin(rotX) + z1 * Math.cos(rotX);
+
+            let fov = 400;
+            let scale = fov / (fov + z2 + 200);
+            return {
+                x: cadCanvas.width / 2 + x1 * scale,
+                y: cadCanvas.height / 2 + y2 * scale
+            };
+        }
+
+        function drawCad() {
+            cCtx.clearRect(0, 0, cadCanvas.width, cadCanvas.height);
+
+            // Auto rotation when not dragging
+            if (!isDragging) {
+                rotY += 0.005;
+            }
+
+            // Draw Enclosure Wireframe
+            cCtx.strokeStyle = '#06b6d4';
+            cCtx.lineWidth = 2;
+            for (let edge of boxEdges) {
+                let p1 = project3D(...boxVertices[edge[0]]);
+                let p2 = project3D(...boxVertices[edge[1]]);
+                cCtx.beginPath();
+                cCtx.moveTo(p1.x, p1.y);
+                cCtx.lineTo(p2.x, p2.y);
+                cCtx.stroke();
+            }
+
+            // Draw ESP32 Component in Wireframe (Amber)
+            cCtx.strokeStyle = '#f59e0b';
+            cCtx.lineWidth = 1.5;
+            for (let edge of boxEdges) {
+                let p1 = project3D(...espVertices[edge[0]]);
+                let p2 = project3D(...espVertices[edge[1]]);
+                cCtx.beginPath();
+                cCtx.moveTo(p1.x, p1.y);
+                cCtx.lineTo(p2.x, p2.y);
+                cCtx.stroke();
+            }
+
+            requestAnimationFrame(drawCad);
+        }
+
+        // --- 69-Node Network Topology Visualizer Canvas ---
+        const networkCanvas = document.getElementById('networkCanvas');
+        const nCtx = networkCanvas.getContext('2d');
+
+        let netNodes = [];
+        let netPackets = [];
+
+        function resizeNetworkCanvas() {
+            networkCanvas.width = networkCanvas.parentElement.clientWidth;
+            networkCanvas.height = networkCanvas.parentElement.clientHeight;
+            initNetworkNodes();
+        }
+
+        function initNetworkNodes() {
+            netNodes = [];
+            netPackets = [];
+
+            const w = networkCanvas.width;
+            const h = networkCanvas.height;
+
+            // Core Router Node
+            netNodes.push({ id: 'core', x: w / 2, y: 70, type: 'core', color: '#10b981', label: 'Core OSPF Router' });
+
+            // Floor Switches
+            netNodes.push({ id: 'sw1', x: w * 0.25, y: 180, type: 'switch', color: '#06b6d4', label: 'Floor 1 Switch (VLAN 10)' });
+            netNodes.push({ id: 'sw2', x: w * 0.50, y: 180, type: 'switch', color: '#06b6d4', label: 'Floor 2 Switch (VLAN 20)' });
+            netNodes.push({ id: 'sw3', x: w * 0.75, y: 180, type: 'switch', color: '#06b6d4', label: 'Floor 3 Switch (VLAN 30)' });
+
+            // Generate Cluster Workstations (Simulating 69 Nodes)
+            const addCluster = (parentId, parentX, startY) => {
+                for (let i = 0; i < 6; i++) {
+                    let offsetX = (i - 2.5) * 28;
+                    netNodes.push({
+                        id: `node_${parentId}_${i}`,
+                        x: parentX + offsetX,
+                        y: startY + (i % 2 === 0 ? 0 : 35),
+                        parentId: parentId,
+                        type: 'host',
+                        color: '#8b5cf6'
+                    });
+                }
+            };
+
+            addCluster('sw1', w * 0.25, 300);
+            addCluster('sw2', w * 0.50, 300);
+            addCluster('sw3', w * 0.75, 300);
+        }
+
+        function drawNetwork() {
+            nCtx.clearRect(0, 0, networkCanvas.width, networkCanvas.height);
+
+            // Draw Connections
+            for (let node of netNodes) {
+                if (node.type === 'switch') {
+                    // Connect Switch to Core
+                    nCtx.strokeStyle = 'rgba(6, 182, 212, 0.4)';
+                    nCtx.lineWidth = 2;
+                    nCtx.beginPath();
+                    nCtx.moveTo(node.x, node.y);
+                    nCtx.lineTo(netNodes[0].x, netNodes[0].y);
+                    nCtx.stroke();
+                } else if (node.type === 'host') {
+                    // Connect Host to Parent Switch
+                    let parent = netNodes.find(n => n.id === node.parentId);
+                    if (parent) {
+                        nCtx.strokeStyle = 'rgba(139, 92, 246, 0.25)';
+                        nCtx.lineWidth = 1;
+                        nCtx.beginPath();
+                        nCtx.moveTo(node.x, node.y);
+                        nCtx.lineTo(parent.x, parent.y);
+                        nCtx.stroke();
+                    }
+                }
+            }
+
+            // Draw Nodes
+            for (let node of netNodes) {
+                nCtx.beginPath();
+                if (node.type === 'core') {
+                    nCtx.arc(node.x, node.y, 14, 0, Math.PI * 2);
+                } else if (node.type === 'switch') {
+                    nCtx.arc(node.x, node.y, 10, 0, Math.PI * 2);
+                } else {
+                    nCtx.arc(node.x, node.y, 5, 0, Math.PI * 2);
+                }
+                nCtx.fillStyle = node.color;
+                nCtx.fill();
+
+                if (node.label) {
+                    nCtx.fillStyle = '#94a3b8';
+                    nCtx.font = '10px Fira Code';
+                    nCtx.textAlign = 'center';
+                    nCtx.fillText(node.label, node.x, node.y - 18);
+                }
+            }
+
+            // Simulate Data Packets
+            if (Math.random() < 0.1) {
+                let switchIndex = Math.floor(Math.random() * 3) + 1;
+                netPackets.push({
+                    x: netNodes[switchIndex].x,
+                    y: netNodes[switchIndex].y,
+                    targetX: netNodes[0].x,
+                    targetY: netNodes[0].y,
+                    progress: 0
+                });
+            }
+
+            for (let i = netPackets.length - 1; i >= 0; i--) {
+                let p = netPackets[i];
+                p.progress += 0.03;
+                let curX = p.x + (p.targetX - p.x) * p.progress;
+                let curY = p.y + (p.targetY - p.y) * p.progress;
+
+                nCtx.beginPath();
+                nCtx.arc(curX, curY, 4, 0, Math.PI * 2);
+                nCtx.fillStyle = '#f59e0b';
+                nCtx.fill();
+
+                if (p.progress >= 1) {
+                    netPackets.splice(i, 1);
+                }
+            }
+
+            requestAnimationFrame(drawNetwork);
+        }
+
+        /* ==========================================================================
+           5. PROJECT MODAL POPUPS
+           ========================================================================== */
+        const modalData = {
+            'medspeak': {
+                title: 'MedSpeak AI: Medical Sign Language Translation',
+                category: 'AI & Computer Vision System',
+                specs: [
+                    'Translate deaf sign gestures into spoken/written clinical terms.',
+                    'OpenCV frame processing combined with MediaPipe 21-point hand landmark tracking.',
+                    'Python TensorFlow gesture classification trained on medical sign vocabularies.',
+                    'Built-in WebSpeech API synthesis for real-time acoustic output during triage.'
+                ]
+            },
+            'zoom': {
+                title: 'Zoom Meeting Threat Detection AI Bot',
+                category: 'Threat Detection & Video Analytics',
+                specs: [
+                    'Continuous video buffer parsing for security enforcement in virtual calls.',
+                    'YOLOv8 deep learning model for real-time weapon and anomaly detection.',
+                    'FastAPI backend triggering automated encrypted alert webhooks.',
+                    'Asynchronous frame sampling maintaining <50ms processing latency.'
+                ]
+            },
+            'network': {
+                title: '69-Node 3-Story Enterprise Cisco Network Topology',
+                category: 'Cisco Networking & Architecture',
+                specs: [
+                    'Multi-building, 3-story enterprise network designed in Cisco Packet Tracer.',
+                    'Multi-Area OSPF configuration ensuring dynamic failover route propagation.',
+                    'Inter-VLAN routing with 802.1Q trunk lines isolating department traffic.',
+                    'Hardware ACL security policy regulating external server access.'
+                ]
+            },
+            'stepper': {
+                title: 'ESP32 + Stepper Driver with 3D AutoCAD Box Enclosure',
+                category: 'Embedded Firmware & Hardware Design',
+                specs: [
+                    'Precision pulse motor regulation utilizing ESP32 dual-core MCU and A4988 driver.',
+                    'AutoCAD 3D parametric modeled enclosure custom fitted for heat dissipation.',
+                    'Integrated mounting posts, ventilation ducts, and wire relief ports.',
+                    'C++ firmware with micro-stepping controls and web interface sliders.'
+                ]
+            }
+        };
+
+        const projectModal = document.getElementById('projectModal');
+        const modalHeader = document.getElementById('modalHeader');
+        const modalBody = document.getElementById('modalBody');
+
+        function openModal(key) {
+            const data = modalData[key];
+            if (!data) return;
+
+            modalHeader.innerHTML = `
+                <span class="text-xs font-mono text-cyan-400 uppercase tracking-widest">${data.category}</span>
+                <h3 class="text-2xl font-bold text-white">${data.title}</h3>
+            `;
+
+            let specsList = data.specs.map(spec => `<li class="flex items-start gap-2"><i class="fa-solid fa-check text-cyan-400 mt-1"></i> <span>${spec}</span></li>`).join('');
+
+            modalBody.innerHTML = `
+                <p class="text-slate-300">Technical Specifications & Implementation Details:</p>
+                <ul class="space-y-2 text-slate-300 font-mono text-xs sm:text-sm">
+                    ${specsList}
+                </ul>
+            `;
+
+            projectModal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            projectModal.classList.add('hidden');
+        }
+
+        /* ==========================================================================
+           6. CONTACT FORM INTERACTION
+           ========================================================================== */
+        const contactForm = document.getElementById('contactForm');
+        const contactAlert = document.getElementById('contactAlert');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            contactAlert.className = 'p-4 rounded-xl font-mono text-xs text-center border bg-emerald-500/10 border-emerald-500/30 text-emerald-300';
+            contactAlert.innerHTML = '<i class="fa-solid fa-circle-check me-2"></i> Transmission Received! Thank you, Kristian will review your inquiry shortly.';
+            contactAlert.classList.remove('hidden');
+
+            contactForm.reset();
+
+            setTimeout(() => {
+                contactAlert.classList.add('hidden');
+            }, 6000);
+        });
+
+        /* ==========================================================================
+           7. MOBILE MENU TOGGLE
+           ========================================================================== */
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        /* ==========================================================================
+           8. INITIALIZATION ON WINDOW LOAD
+           ========================================================================== */
+        window.onload = function () {
+            resizeParticleCanvas();
+            animateParticles();
+
+            resizeCadCanvas();
+            drawCad();
+
+            resizeNetworkCanvas();
+            drawNetwork();
+        };
+
+        window.onresize = function () {
+            resizeParticleCanvas();
+            resizeCadCanvas();
+            resizeNetworkCanvas();
+        };
+    </script>
+</body>
+</html>
